@@ -1,0 +1,30 @@
+<?php
+SESSION_start();
+$u=$_POST['username'];
+$p=$_POST['password'];
+//$con=mysqli_connect('localhost','root');
+//mysqli_select_db($con,'chatbook');
+$server="sql212.epizy.com";
+$usernameser="epiz_27494773";
+$passwordser="VCWOlhKgzRgq9";
+$dbname="epiz_27494773_relylabs";
+$con=mysqli_connect($server,$usernameser,$passwordser,$dbname);
+$r="select * from user where username='$u' && password='$p'";
+$result=mysqli_query($con,$r);
+$n=mysqli_num_rows($result);
+if($n>=1)
+{
+    while($row=$result->fetch_assoc())
+	{$_SESSION['name']=$row['name'];}
+	$_SESSION['G']=1;
+    $_SESSION['login']=0;
+	header('location:index.php');
+}
+else
+{
+	//echo animesh;
+    $_SESSION['G']=0;
+    $_SESSION['login']=1;
+	header('location:login.php');
+}
+?>
